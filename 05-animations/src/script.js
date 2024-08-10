@@ -38,8 +38,11 @@ const animation =()=>{
 //    clock
     const elapsedTime =  clock.getElapsedTime();
 
-    mesh.rotation.y = elapsedTime 
-    console.log(elapsedTime)
+    camera.position.y = Math.sin(elapsedTime);
+    camera.position.x = Math.cos(elapsedTime);
+    camera.lookAt(mesh.position)
+    
+    
     renderer.render(scene,camera);
     window.requestAnimationFrame(animation)
 
