@@ -23,8 +23,8 @@ const doorNormalTexture = textureLoader.load('./texture/door/normal.jpg');
 const dorrMetalnessTexture = textureLoader.load('./textures/door/matelness.jpg');
 const doorRoughnessTexture = textureLoader.load('./textures/door/roughness.jpg');
 
-const matcapTexture = textureLoader.load('./textures/matcaps/1.png');
-const gradientTexture = textureLoader.load('./textures/gradient/3.jpg');
+const matcapTexture = textureLoader.load('./textures/matcaps/8.png');
+const gradientTexture = textureLoader.load('./textures/gradients/5.jpg');
 
 
 doorColorTexture.colorSpace = THREE.SRGBColorSpace;
@@ -35,13 +35,50 @@ matcapTexture.colorSpace = THREE.SRGBColorSpace;
 // Objects
 // MeshBasicMaterial
 
-const material = new THREE.MeshBasicMaterial();
+// const material = new THREE.MeshBasicMaterial();
 
-material.color = new THREE.Color(0xff0000)
+// material.color = new THREE.Color(0xff0000)
 
-material.map = doorColorTexture;
-material.wireframe = true
+// material.map = doorColorTexture;
+// material.wireframe = true
+// material.transparent = true
 
+// material.opacity = 0.2
+
+// material.alphaMap = doorAlphaTexture;
+
+// material.side = THREE.DoubleSide
+
+// MeshNormalMaterial
+
+// const material = new THREE.MeshNormalMaterial()
+
+// MeshMatCapMaterial 
+// const material = new THREE.MeshMatcapMaterial();
+// material.matcap = matcapTexture
+
+
+// MeshDepthMaterial
+// const material = new THREE.MeshDepthMaterial()
+
+// MeshLamberMaterial
+// const material = new THREE.MeshLambertMaterial() // need light
+
+// MeshPhonMaterial 
+// const material = new THREE.MeshPhongMaterial();
+// material.shininess = 1000;
+// material.specular = new THREE.Color(0x1188ff)
+
+// MeshToonMaterial
+
+const material = new THREE.MeshToonMaterial();
+gradientTexture.minFilter = THREE.NearestFilter
+gradientTexture.magFilter = THREE.NearestFilter
+gradientTexture.generateMipmaps = false
+material.gradientMap = gradientTexture;
+
+
+// material.side = THREE.DoubleSide;
 
 const sphere = new THREE.Mesh(
     new THREE.SphereGeometry(0.5,16,16),
@@ -61,7 +98,21 @@ const torus = new THREE.Mesh(
 
 torus.position.x = 1.5
 
-scene.add(sphere,plane,torus)
+scene.add(sphere,plane,torus);
+
+/**
+ * 
+ * Light
+ */
+
+const ambinetLight = new THREE.AmbientLight(0xffffff,1);
+scene.add(ambinetLight)
+
+const pointLight = new THREE.PointLight(0xffffff,30);
+pointLight.position.x = 2;
+pointLight.position.y = 3;
+pointLight.position.z = 4;
+scene.add(pointLight)
 
 /**
  * Sizes
